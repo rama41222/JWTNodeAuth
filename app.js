@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const passport = require('passport');
 mongooge.Promise = require('bluebird');
-const config = require('./app/config/database.js');
+const config = require('./app/config/config.js');
 
 const app = express();
 const PORT = 3000;
@@ -37,7 +37,7 @@ const users = require("./app/routes/users.js");
 app.use('/users',users);
 
 app.get('/', (req,res)=>{
-	res.status(200).json({ api: "Welcome to sample api 1.0.0v"});
+	res.status(200).json({ api: "Welcome to Movie Store Auth api 1.0.0v"});
 });
 
 app.listen(PORT, (err)=>{

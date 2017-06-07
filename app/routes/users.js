@@ -2,9 +2,20 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const config = require('../config/database.js');
+const config = require('../config/config.js');
 const User = require('../models/user.js');
 const sanitizer = require('sanitizer');
+
+
+router.get('/',passport.authenticate('jwt',{session:false}),(req,res)=>{
+	User.getAllUsers((err, users)=>{
+		if(err){
+			throw err;
+		}else{
+			res.json({success:true, usersList : users });
+		}
+	});
+});
 
 router.post('/',(req,res)=>{
  
@@ -13,12 +24,12 @@ router.post('/',(req,res)=>{
    const password = sanitizer.sanitize(req.body.password);
 
  
-   User.getAllByEmail(email,(err,user)=>{
+   User.getUserByEmail(email,(err,user)=>{
 
    		if(err) throw err;
 
    		console.log(user);
-   		if(user.length == 0){
+   		if(!user){
 
    			var user = new User({
 		   		email : email,

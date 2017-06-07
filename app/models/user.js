@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise= require('bluebird');
 const bcrypt = require('bcryptjs');
-const config = require('../config/database');
+const config = require('../config/config.js');
 
 
 var UserSchema = mongoose.Schema({
@@ -19,12 +19,12 @@ var UserSchema = mongoose.Schema({
 		totalCost:{type:Number}
 	}],snacks:[{
 		sID : {type: String},
-		quantity:{type:new Number},
+		quantity:{type:Number},
 		totalCost:{type:Number}
 	}]
 	,reservations:[{
-		rID : {type :String}
-		quantity:{type:new Number},
+		rID : {type :String},
+		quantity:{type:Number},
 		totalCost:{type:Number}
 	}]
 
