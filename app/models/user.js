@@ -14,20 +14,30 @@ var UserSchema = mongoose.Schema({
 		required : true
 
 	},tickets:[{
-		mID :{type: String},
-		noOfTickets:{type:Number},
-		totalCost:{type:Number}
-	}],snacks:[{
-		sID : {type: String},
-		quantity:{type:Number},
-		totalCost:{type:Number}
-	}]
-	,reservations:[{
-		rID : {type :String},
-		quantity:{type:Number},
-		totalCost:{type:Number}
-	}]
+		
+		mmID :{type: String},
+		mname :{type: String},
+		mprice :{type: Number},
+		mtime :{type: String},
+		mnoOfTickets:{type:Number},
+		mtotal:{type:Number},
 
+		ssID : {type: String},
+		sname : {type: String},
+		sprice : {type: Number},
+		squantity:{type:Number},
+		stotal:{type:Number},
+
+	
+		rrID : {type :String},
+		rlocation : {type :String},
+		rname : {type: String},
+		rtype:{type:String},
+		raccomodation:{type:Number},
+		rprice:{type:Number},
+		grandtotal:{type:String}
+
+	}]
 });
 
 
@@ -49,7 +59,12 @@ module.exports.addUser = (newUser,callback)=>{
 	});
 
 }
+module.exports.updateUser = (_id, tickets, callback)=>{
+	console.log(tickets)
 
+	User.findByIdAndUpdate({ "_id": _id },{$push:{tickets:tickets}},{new:true}, callback);
+
+};
 module.exports.comparePasswords = (candidatePassword,hash,callback)=>{
 
 	bcrypt.compare(candidatePassword, hash,(err, isMatch)=>{
@@ -62,7 +77,7 @@ module.exports.getAllUsers = (callback)=>{
 }
 
 module.exports.getUserByEmail = (email,callback)=>{
-	const query = { email : email };
+	const query = { "email" : email };
 	User.findOne(query,callback);
 }
 
